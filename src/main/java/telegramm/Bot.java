@@ -26,6 +26,9 @@ public class Bot extends TelegramLongPollingBot {
     public static String messageOutCommad  ;
     public static Connection connection;
     public static Statement statement;
+    //Создаем исходящее сообщение
+    SendMessage outMessage = new SendMessage();
+    Comand comand = new Comand();
 
 
 
@@ -51,25 +54,11 @@ public class Bot extends TelegramLongPollingBot {
                 if(update.getMessage().getChatId() == privat){
 
 
-                    //Извлекаем объект входящего сообщения
-                    Message inMessage = update.getMessage();
-                    messageOutCommad = inMessage.getText();
-                    System.out.println(inMessage.getChatId() +";"+ inMessage.getText());
+                    extractMessage(update);
 
-                    //Создаем исходящее сообщение
-                    SendMessage outMessage = new SendMessage();
-                    Comand comand = new Comand();
                     comand.comandSearch();
 
-
-
-
-                    outMessage.setChatId(userOut);
-                    //Указываем текст сообщения
-                    outMessage.setText(messageInRespons);
-                    //Отправляем сообщение
-                    execute(outMessage);
-                    messageInRespons = "";
+                    sendMessage(messageInRespons);
                 }
             }
         } catch (TelegramApiException e) {
@@ -81,6 +70,21 @@ public class Bot extends TelegramLongPollingBot {
 
     }
 
+    public void extractMessage(Update update) {
+        //Извлекаем объект входящего сообщения
+        Message inMessage = update.getMessage();
+        messageOutCommad = inMessage.getText();
+        System.out.println(inMessage.getChatId() +";"+ inMessage.getText());
+    }
+
+    public void sendMessage(String message) throws TelegramApiException {
+        outMessage.setChatId(userOut);
+        //Указываем текст сообщения
+        outMessage.setText(message);
+        //Отправляем сообщение
+        execute(outMessage);
+        messageInRespons = "";
+    }
 
 
 

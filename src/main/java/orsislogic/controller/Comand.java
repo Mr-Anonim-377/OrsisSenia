@@ -1,5 +1,6 @@
 package orsislogic.controller;
 
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import orsislogic.comands.*;
 
 
@@ -18,12 +19,15 @@ public class Comand  {
      private ShowWork showWorkComand = new ShowWork();
      private ConnectedWork connectedWork = new ConnectedWork();
      private RememberChain rememberChain = new RememberChain();
-    public void comandSearch() throws SQLException {
+    public void comandSearch() throws SQLException, TelegramApiException {
         String command = messageOutCommad.toLowerCase();
         connection = DriverManager.getConnection(url_BD, user_BD, pass_BD);
         statement = connection.createStatement();
 
+        if (command.contains("все")||command.contains("что связано с ")||command.contains("всё")||command.contains("связи")||command.contains("вспомни все что связанно с")) {
 
+            rememberChain.rememberChain();
+        }
         if(command.contains("привет")|| command.contains("hi")|| command.contains("ку")|| command.contains("приветик")){
             helloComand.hello();
         }
@@ -38,14 +42,11 @@ public class Comand  {
 
             showWorkComand.showWork();
         }
-        if (command.contains("привяжи")||command.contains("приспособь")||command.contains("соедини")||command.contains("запиши к")) {
+        if (command.contains("привяжи")||command.contains("приспособь")||command.contains("соедени")||command.contains("запиши к")) {
 
             connectedWork.connectedWork();
         }
-        if (command.contains("все")||command.contains("что связано с ")||command.contains("всё")||command.contains("связи")) {
 
-            rememberChain.rememberChain();
-        }
         statement.close();
         connection.close();
     }

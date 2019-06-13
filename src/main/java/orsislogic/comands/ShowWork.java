@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import static telegramm.Bot.*;
 
 public class ShowWork {
-    ArrayList<String> helloResponse = new ArrayList<String>();
+    ArrayList<String> showResponse = new ArrayList<String>();
 
     public void showWork() throws SQLException {
          String bdOut = "";
@@ -32,13 +32,17 @@ public class ShowWork {
                     "where title like"+ "'%"+work + "%'");
 
         while (resultSet.next()) {
-            helloResponse.add(resultSet.getString(4));
+            showResponse.add(resultSet.getString(4));
         }
+if(showResponse.size()>0) {
+    for (String i : showResponse) {
+        bdOut = bdOut + i + "\n";
+    }
+    messageInRespons ="Все что смог вспомнить: "+ bdOut ;
+}else{
+    messageInRespons = "Ничего не нашлось :=(";
+}
 
-        for(String i:helloResponse){
-            bdOut=bdOut +i + "\n";
-        }
-        messageInRespons ="Все что смог вспомнить: "+ bdOut ;
 
 
 
