@@ -27,14 +27,28 @@ public class AddWorks {
 
         String workMessage = work.trim();
                 work = work.toUpperCase();
-        try {
-            ResultSet resultSet = statement.executeQuery("insert into works (title,status,title_no_formaliz)\n" +
-                    "values('" + work.trim()  + "',1,'"+workMessage+" "+"')");
-        } catch (SQLException e) {
 
+        try {
+            ResultSet resultComparison = statement.executeQuery("select id\n" +
+                    "from works \n" +
+                    "where title ="+work);
+            if(resultComparison != null){
+                try {
+                    ResultSet resultSet = statement.executeQuery("insert into works (title,status,title_no_formaliz)\n" +
+                            "values('" + work.trim()  + "',1,'"+workMessage+" "+"')");
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                messageInRespons = "Я запомнил: " + workMessage;
+            }
+            else{
+                messageInRespons = "Такое дело я уже помню)";
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
-        messageInRespons = "Я запомнил: " + workMessage;
         
     }
 }

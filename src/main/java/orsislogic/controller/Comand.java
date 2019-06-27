@@ -28,23 +28,26 @@ public class Comand  {
 
             rememberChain.rememberChain();
         }
-        if(command.contains("привет")|| command.contains("hi")|| command.contains("ку")|| command.contains("приветик")){
+        else if(command.contains("привет")|| command.contains("hi")|| command.contains("ку")|| command.contains("приветик")){
             helloComand.hello();
         }
-        if(command.contains("время") || command.contains("времени")|| command.contains("time")|| command.contains("тайма")){
+        else if(command.contains("время") || command.contains("времени")|| command.contains("time")|| command.contains("тайма")){
             timeComand.time();
         }
-        if (command.contains("добавь")||command.contains("запиши")||command.contains("запомни")||command.contains("следи")) {
+        else if (command.contains("добавь")||command.contains("запиши")||command.contains("запомни")||command.contains("следи")) {
 
             addWorksComand.addWorks();
         }
-        if (command.contains("покажи")||command.contains("подскажи")||command.contains("вспомни")||command.contains("помнишь")) {
+        else if (command.contains("покажи")||command.contains("подскажи")||command.contains("вспомни")||command.contains("помнишь")) {
 
             showWorkComand.showWork();
         }
-        if (command.contains("привяжи")||command.contains("приспособь")||command.contains("соедени")||command.contains("запиши к")) {
+        else if (command.contains("привяжи")||command.contains("приспособь")||command.contains("соедени")||command.contains("запиши к")) {
 
             connectedWork.connectedWork();
+        }
+        else{
+            messageInRespons = " Я еще не на столько развит и не понимаю некоторые ваши слова,повторите пожалуйста чем вам помочь :=)";
         }
 
         statement.close();

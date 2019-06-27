@@ -29,7 +29,7 @@ public class ShowWork {
         work = work.toUpperCase().trim();
             ResultSet resultSet = statement.executeQuery("select *\n" +
                     "from works \n" +
-                    "where title like"+ "'%"+work + "%'");
+                    "where title ="+work);
 
         while (resultSet.next()) {
             showResponse.add(resultSet.getString(4));
